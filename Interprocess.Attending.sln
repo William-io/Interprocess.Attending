@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interprocess.Attending.Appl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interprocess.Attending.Infrastructure", "Source\Interprocess.Attending.Infrastructure\Interprocess.Attending.Infrastructure.csproj", "{C9533C25-ACA6-45EC-9399-A0A1EFC3432B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interprocess.Attending.API", "Source\Interprocess.Attending.API\Interprocess.Attending.API.csproj", "{25E5FF62-B6F9-48DC-8EBB-D000E1A93937}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{C9533C25-ACA6-45EC-9399-A0A1EFC3432B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9533C25-ACA6-45EC-9399-A0A1EFC3432B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9533C25-ACA6-45EC-9399-A0A1EFC3432B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25E5FF62-B6F9-48DC-8EBB-D000E1A93937}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25E5FF62-B6F9-48DC-8EBB-D000E1A93937}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25E5FF62-B6F9-48DC-8EBB-D000E1A93937}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25E5FF62-B6F9-48DC-8EBB-D000E1A93937}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -3,6 +3,7 @@ using Interprocess.Attending.Application.Abstractions.Data;
 using Interprocess.Attending.Application.Abstractions.Registration;
 using Interprocess.Attending.Domain.Abstractions;
 using Interprocess.Attending.Domain.Attendances;
+using Interprocess.Attending.Domain.Clinics;
 using Interprocess.Attending.Domain.Patients;
 using Interprocess.Attending.Infrastructure.Clock;
 using Interprocess.Attending.Infrastructure.Data;
@@ -39,6 +40,7 @@ public static class DependencyInjection
 
         services.AddScoped<IRegistrationService, RegistrationService>();
         services.AddScoped<IPatientRepository, PatientRepository>();
+        services.AddScoped<IClinicRepository, ClinicRepository>();
         services.AddScoped<IAttendanceRepository, AttendanceRepository>();
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 

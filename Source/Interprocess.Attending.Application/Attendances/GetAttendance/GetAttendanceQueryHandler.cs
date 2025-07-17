@@ -10,12 +10,10 @@ namespace Interprocess.Attending.Application.Attendances.GetAttendance;
 internal sealed class GetAttendanceQueryHandler : IQueryHandler<GetAttendanceQuery, AttendanceResponse>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
-    private readonly IPatientContext _patientContext;
 
-    public GetAttendanceQueryHandler(ISqlConnectionFactory sqlConnectionFactory, IPatientContext patientContext)
+    public GetAttendanceQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
     {
         _sqlConnectionFactory = sqlConnectionFactory;
-        _patientContext = patientContext;
     }
 
     public async Task<Result<AttendanceResponse>> Handle(GetAttendanceQuery request,
@@ -41,9 +39,6 @@ internal sealed class GetAttendanceQueryHandler : IQueryHandler<GetAttendanceQue
             {
                 request.AttendanceId
             });
-
-        if (attendance is null || attendance.PatientId != _patientContext.PatientId)
-            return Result.Failure<AttendanceResponse>(AttendanceErrors.NotFound);
 
         return attendance;
     }

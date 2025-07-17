@@ -1,0 +1,6 @@
+@Interprocess.Attending.API_HostAddress = http://localhost:5117
+
+GET {{Interprocess.Attending.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -2,5 +2,5 @@
 
 public interface IClinicRepository
 {
-    Task<Clinic> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Clinic?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 }
