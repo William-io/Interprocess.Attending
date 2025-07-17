@@ -27,12 +27,12 @@ public sealed class Attendance : Entity
 
     private Attendance()
     {
-
+        
     }
 
     public Guid ClinicId { get; private set; }
     public Guid PatientId { get; private set; }
-    public string Description { get; private set; }
+    public string Description { get; private set; } = string.Empty;
     public DateTime CreatedOnUtc { get; private set; }
     public AttendanceStatus Status { get; private set; }
 
@@ -58,32 +58,32 @@ public sealed class Attendance : Entity
         return attendance;
     }
 
-    //Validacao opcional nao proposta
-    public Result Confirmed(DateTime utcNow)
+    public Result Update(string description, DateTime createdOnUtc)
     {
         if (Status != AttendanceStatus.Active)
             return Result.Failure(AttendanceErrors.NotActive);
 
-        Status = AttendanceStatus.Active;
-        CreatedOnUtc = utcNow;
+        // Validação para não permitir datas no futuro
+        AttendanceDateValidator.ValidateAttendanceDateTime(createdOnUtc);
 
-        AddDomainEvent(new AttendanceConfirmedDomainEvent(Id));
+        Description = description;
+        CreatedOnUtc = createdOnUtc;
+
+        AddDomainEvent(new AttendanceUpdatedDomainEvent(Id));
 
         return Result.Success();
     }
 
-    public Result Canceled(DateTime utcNow)
+    public Result Inactivate()
     {
         if (Status != AttendanceStatus.Active)
             return Result.Failure(AttendanceErrors.NotActive);
 
         Status = AttendanceStatus.Inactive;
-        CreatedOnUtc = utcNow;
 
-        AddDomainEvent(new AttendanceCanceledDomainEvent(Id));
+        AddDomainEvent(new AttendanceInactivatedDomainEvent(Id));
 
         return Result.Success();
     }
-
 
 }

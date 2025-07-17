@@ -11,5 +11,5 @@ public sealed class Clinic : Entity
     
     private Clinic() { }
 
-    public string Name { get; private set; }
+    public string Name { get; private set; } = null!;
 }

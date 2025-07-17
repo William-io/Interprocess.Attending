@@ -56,7 +56,7 @@ internal sealed class CreateAttendanceCommandHandler : ICommandHandler<CreateAtt
             return Result.Success(attendance.Id);
 
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return Result.Failure<Guid>(AttendanceErrors.CreationFailed);
         }
