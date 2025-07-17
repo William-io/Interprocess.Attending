@@ -2,4 +2,4 @@
 
 namespace Interprocess.Attending.Application.Attendances.GetAttendance;
 
-public sealed record GetAttendanceQuery(Guid AttendanceId) : IQuery<AttendanceResponse>;
+public sealed record GetAttendanceQuery() : IQuery<IEnumerable<AttendanceResponse>>;

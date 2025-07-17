@@ -6,7 +6,7 @@ using Interprocess.Attending.Domain.Clinics;
 
 namespace Interprocess.Attending.Application.Attendances.GetAttendancesByFilters;
 
-internal sealed class GetAttendancesByFiltersQueryHandler : IQueryHandler<GetAttendancesByFiltersQuery, IEnumerable<AttendanceResponse>>
+internal sealed class GetAttendancesByFiltersQueryHandler : IQueryHandler<GetAttendancesByFiltersQuery, IEnumerable<AttendanceResponseFilter>>
 {
     private readonly IAttendanceRepository _attendanceRepository;
     private readonly IPatientRepository _patientRepository;
@@ -22,7 +22,7 @@ internal sealed class GetAttendancesByFiltersQueryHandler : IQueryHandler<GetAtt
         _clinicRepository = clinicRepository;
     }
 
-    public async Task<Result<IEnumerable<AttendanceResponse>>> Handle(GetAttendancesByFiltersQuery request, CancellationToken cancellationToken)
+    public async Task<Result<IEnumerable<AttendanceResponseFilter>>> Handle(GetAttendancesByFiltersQuery request, CancellationToken cancellationToken)
     {
         try
         {
@@ -33,14 +33,14 @@ internal sealed class GetAttendancesByFiltersQueryHandler : IQueryHandler<GetAtt
                 request.Status,
                 cancellationToken);
 
-            var responses = new List<AttendanceResponse>();
+            var responses = new List<AttendanceResponseFilter>();
 
             foreach (var attendance in attendances)
             {
                 var patient = await _patientRepository.GetByIdAsync(attendance.PatientId, cancellationToken);
                 var clinic = await _clinicRepository.GetByIdAsync(attendance.ClinicId, cancellationToken);
 
-                var response = new AttendanceResponse
+                var response = new AttendanceResponseFilter
                 {
                     Id = attendance.Id,
                     ClinicId = attendance.ClinicId,
@@ -48,9 +48,9 @@ internal sealed class GetAttendancesByFiltersQueryHandler : IQueryHandler<GetAtt
                     Description = attendance.Description,
                     CreatedOnUtc = attendance.CreatedOnUtc,
                     Status = attendance.Status.ToString(),
-                    PatientName = patient != null ? $"{patient.FirstName?.Value} {patient.LastName?.Value}".Trim() : "N/A",
+                    PatientName = patient != null ? $"{patient.Name}".Trim() : "N/A",
                     ClinicName = clinic?.Name ?? "N/A",
-                    PatientCpf = patient?.Cpf?.Value ?? "N/A",
+                    PatientCpf = patient?.Cpf ?? "N/A",
                 };
 
                 responses.Add(response);
@@ -63,8 +63,7 @@ internal sealed class GetAttendancesByFiltersQueryHandler : IQueryHandler<GetAtt
         }
         catch (Exception ex)
         {
-            return Result.Failure<IEnumerable<AttendanceResponse>>(
-                new Error("Attendance.GetByFiltersError", $"Erro ao buscar atendimentos: {ex.Message}"));
+            return Result.Failure<IEnumerable<AttendanceResponseFilter>>(new Error("Exception", ex.Message));
         }
     }
 }

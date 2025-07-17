@@ -1,13 +1,18 @@
 ﻿using Interprocess.Attending.Domain.Abstractions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Interprocess.Attending.Infrastructure;
 
 public sealed class ApplicationDbContext : DbContext, IUnitOfWork
 {
-    private readonly IPublisher _publisher;
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+    private readonly IServiceProvider _serviceProvider;
+    
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IServiceProvider serviceProvider) : base(options) 
+    { 
+        _serviceProvider = serviceProvider;
+    }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -36,9 +41,13 @@ public sealed class ApplicationDbContext : DbContext, IUnitOfWork
                 return domainEvents;
             }).ToList();
 
-        foreach (var domainEvent in domainEvents)
+        var publisher = _serviceProvider.GetService<IPublisher>();
+        if (publisher != null)
         {
-            await _publisher.Publish(domainEvent);
+            foreach (var domainEvent in domainEvents)
+            {
+                await publisher.Publish(domainEvent);
+            }
         }
     }
 }

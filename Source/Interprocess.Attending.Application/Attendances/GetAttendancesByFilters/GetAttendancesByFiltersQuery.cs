@@ -8,4 +8,4 @@ public sealed record GetAttendancesByFiltersQuery(
     DateTime? EndDate = null,
     Guid? PatientId = null,
     AttendanceStatus? Status = null
-) : IQuery<IEnumerable<AttendanceResponse>>;
+) : IQuery<IEnumerable<AttendanceResponseFilter>>;

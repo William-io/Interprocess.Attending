@@ -11,29 +11,19 @@ internal sealed class PatientSetting : IEntityTypeConfiguration<Patient>
         // Configurações do Patient
         builder.ToTable("Patients");
 
-        // Id é gerado manualmente no código
-        builder.Property(p => p.Id)
-            .ValueGeneratedNever(); // EF não gera o Id
+        builder.HasKey(user => user.Id);
 
-        // Outros mapeamentos e configurações
-        builder.Property(p => p.FirstName)
+        builder.Property(p => p.Name)
             .IsRequired()
-            .HasMaxLength(100)
-            .HasConversion(firstName => firstName.Value, firstName => new FirstName(firstName));
-
-        builder.Property(p => p.LastName)
-            .IsRequired()
-            .HasMaxLength(100)
-            .HasConversion(lastName => lastName.Value, lastName => new LastName(lastName));
+            .HasMaxLength(100);
 
         builder.Property(p => p.Cpf)
             .IsRequired()
-            .HasMaxLength(11)
-            .HasConversion(cpf => cpf.Value, cpf => new Document(cpf));
+            .HasMaxLength(11);
 
         builder.Property(p => p.DateBirth)
             .IsRequired()
-            .HasMaxLength(10); // Formato "dd/MM/yyyy"
+            .HasMaxLength(10);
 
         builder.Property(p => p.Sex)
            .IsRequired()

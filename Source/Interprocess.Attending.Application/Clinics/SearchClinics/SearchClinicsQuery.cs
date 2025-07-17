@@ -2,4 +2,4 @@
 
 namespace Interprocess.Attending.Application.Clinics.SearchClinics;
 
-public record SearchClinicsQuery(string Name) : IQuery<IReadOnlyList<ClinicResponse>>;
+public record SearchClinicsQuery() : IQuery<IReadOnlyList<ClinicResponse>>;

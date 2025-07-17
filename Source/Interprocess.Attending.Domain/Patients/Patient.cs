@@ -7,16 +7,14 @@ public sealed class Patient : Entity
 {
     private Patient(
         Guid id,
-        FirstName? firstName,
-        LastName? lastName,
-        Document cpf,
+        string name,
+        string cpf,
         string dateBirth,
         Sex sex,
         PatientStatus status, 
         Address address) : base(id)
     {
-        FirstName = firstName;
-        LastName = lastName;
+        Name = name;
         Cpf = cpf;
         DateBirth = dateBirth;
         Sex = sex;
@@ -26,14 +24,10 @@ public sealed class Patient : Entity
     
     private Patient()
     {
-        Cpf = null!;
-        DateBirth = null!;
-        Address = null!;
     }
 
-    public FirstName? FirstName { get; private set; }
-    public LastName? LastName { get; private set; }
-    public Document Cpf { get; private set; }
+    public string Name { get; private set; }
+    public string Cpf { get; private set; }
     public string DateBirth { get; private set; }
     public Sex Sex { get; private set; }
     public PatientStatus Status { get; private set; }
@@ -44,9 +38,8 @@ public sealed class Patient : Entity
      */
     
     public static async Task<Patient> CreateAsync(
-        FirstName firstName,
-        LastName lastName,
-        Document cpf,
+        string name,
+        string cpf,
         string dateBirth,
         Sex sex,
         PatientStatus status,
@@ -58,8 +51,7 @@ public sealed class Patient : Entity
         
         var patient = new Patient(
             Guid.NewGuid(), 
-            firstName,
-            lastName,
+            name,
             cpf,
             dateBirth,
             sex,
@@ -72,14 +64,12 @@ public sealed class Patient : Entity
     }
 
     public void Update(
-        FirstName firstName,
-        LastName lastName,
+        string name,
         string dateBirth,
         Sex sex,
         Address address)
     {
-        FirstName = firstName;
-        LastName = lastName;
+        Name = name;
         DateBirth = dateBirth;
         Sex = sex;
         Address = address;

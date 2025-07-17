@@ -20,9 +20,6 @@ public class RegisterPatientCommandHandler : ICommandHandler<RegisterPatientComm
     {
 
         // Criar os value objects
-        var firstName = new FirstName(request.FirstName);
-        var lastName = new LastName(request.LastName);
-        var cpf = new Document(request.Cpf);
         var sex = Enum.Parse<Sex>(request.Sex);
         var address = new Address(
             request.Street,
@@ -35,9 +32,8 @@ public class RegisterPatientCommandHandler : ICommandHandler<RegisterPatientComm
 
         // Criar o paciente com validação de CPF duplicado
         var patient = await Patient.CreateAsync(
-            firstName,
-            lastName,
-            cpf,
+            request.Name,
+            request.Cpf,
             request.DateBirth,
             sex,
             PatientStatus.Active,

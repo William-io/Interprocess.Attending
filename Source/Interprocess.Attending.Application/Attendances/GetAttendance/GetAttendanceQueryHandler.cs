@@ -1,13 +1,11 @@
 ﻿using Dapper;
 using Interprocess.Attending.Application.Abstractions.Data;
 using Interprocess.Attending.Application.Abstractions.MessageCommunication;
-using Interprocess.Attending.Application.Abstractions.Patient;
 using Interprocess.Attending.Domain.Abstractions;
-using Interprocess.Attending.Domain.Attendances;
 
 namespace Interprocess.Attending.Application.Attendances.GetAttendance;
 
-internal sealed class GetAttendanceQueryHandler : IQueryHandler<GetAttendanceQuery, AttendanceResponse>
+internal sealed class GetAttendanceQueryHandler : IQueryHandler<GetAttendanceQuery, IEnumerable<AttendanceResponse>>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
@@ -16,7 +14,7 @@ internal sealed class GetAttendanceQueryHandler : IQueryHandler<GetAttendanceQue
         _sqlConnectionFactory = sqlConnectionFactory;
     }
 
-    public async Task<Result<AttendanceResponse>> Handle(GetAttendanceQuery request,
+    public async Task<Result<IEnumerable<AttendanceResponse>>> Handle(GetAttendanceQuery request,
         CancellationToken cancellationToken)
     {
         using var connection = _sqlConnectionFactory.CreateConnection();
@@ -27,19 +25,14 @@ internal sealed class GetAttendanceQueryHandler : IQueryHandler<GetAttendanceQue
                                clinic_id AS ClinicId,
                                patient_id AS PatientId,
                                description AS Description,
-                               created_on_utc AS CreatedOnUtc
-                               status AS Status,
+                               created_on_utc AS CreatedOnUtc,
+                               status AS Status
                            FROM attendances
-                           WHERE id = @AttendanceId
+                           ORDER BY created_on_utc DESC
                            """;
 
-        var attendance = await connection.QueryFirstOrDefaultAsync<AttendanceResponse>(
-            sql,
-            new
-            {
-                request.AttendanceId
-            });
+        var attendances = await connection.QueryAsync<AttendanceResponse>(sql);
 
-        return attendance;
+        return Result.Success(attendances);
     }
 }

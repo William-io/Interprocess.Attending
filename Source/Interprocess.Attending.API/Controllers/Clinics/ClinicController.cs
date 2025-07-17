@@ -16,11 +16,10 @@ public class ClinicController : ControllerBase
         _sender = sender;
     }
     
-    // Define your endpoints here, for example:
     [HttpGet]
-    public async Task<IActionResult> GetClinics(string name, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetClinics(CancellationToken cancellationToken)
     {
-        var query = new SearchClinicsQuery(name);
+        var query = new SearchClinicsQuery();
         Result<IReadOnlyList<ClinicResponse>> result = await _sender.Send(query, cancellationToken);
 
         return Ok(result.Value);

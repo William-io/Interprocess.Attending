@@ -1,6 +1,6 @@
 namespace Interprocess.Attending.Application.Attendances.GetAttendancesByFilters;
 
-public class AttendanceResponse
+public class AttendanceResponseFilter
 {
     public Guid Id { get; init; }
     public Guid ClinicId { get; init; }

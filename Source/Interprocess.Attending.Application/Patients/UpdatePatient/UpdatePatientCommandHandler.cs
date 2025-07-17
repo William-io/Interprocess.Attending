@@ -27,8 +27,6 @@ internal sealed class UpdatePatientCommandHandler : ICommandHandler<UpdatePatien
             }
 
             // Criar os novos value objects
-            var firstName = new FirstName(request.FirstName);
-            var lastName = new LastName(request.LastName);
             var sex = Enum.Parse<Sex>(request.Sex);
             var address = new Address(
                 request.Street,
@@ -40,7 +38,7 @@ internal sealed class UpdatePatientCommandHandler : ICommandHandler<UpdatePatien
             );
 
             // Atualizar o paciente
-            patient.Update(firstName, lastName, request.DateBirth, sex, address);
+            patient.Update(request.Name, request.DateBirth, sex, address);
 
             _patientRepository.Update(patient);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

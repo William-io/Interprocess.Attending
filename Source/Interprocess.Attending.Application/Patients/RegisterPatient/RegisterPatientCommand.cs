@@ -3,8 +3,7 @@
 namespace Interprocess.Attending.Application.Patients.RegisterPatient;
 
 public sealed record RegisterPatientCommand(
-    string FirstName,
-    string LastName,
+    string Name,
     string Cpf,
     string DateBirth,
     string Sex,

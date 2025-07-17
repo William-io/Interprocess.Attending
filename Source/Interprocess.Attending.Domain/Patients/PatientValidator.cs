@@ -1,5 +1,3 @@
-using System;
-
 namespace Interprocess.Attending.Domain.Patients;
 
 public static class PatientValidator
@@ -10,7 +8,7 @@ public static class PatientValidator
     /// <param name="cpf">CPF a ser validado</param>
     /// <param name="patientRepository">Repositório de pacientes</param>
     /// <exception cref="ArgumentException">Lançada quando o CPF já existe</exception>
-    public static async Task ValidateUniqueCpfAsync(Document cpf, IPatientRepository patientRepository)
+    public static async Task ValidateUniqueCpfAsync(string cpf, IPatientRepository patientRepository)
     {
         var existingPatient = await patientRepository.GetByCpfAsync(cpf);
         

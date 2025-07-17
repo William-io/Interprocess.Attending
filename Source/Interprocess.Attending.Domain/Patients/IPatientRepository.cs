@@ -3,8 +3,7 @@
 public interface IPatientRepository
 {
     Task<Patient?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-    Task<Patient?> GetByCpfAsync(Document cpf, CancellationToken cancellationToken = default);
-    // Listar todos os pacientes
+    Task<Patient?> GetByCpfAsync(string cpf, CancellationToken cancellationToken = default);
     Task<IEnumerable<Patient>> GetAllAsync(CancellationToken cancellationToken = default);
     
     // Listar pacientes com filtros opcionais por nome, CPF e/ou status

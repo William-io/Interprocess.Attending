@@ -3,8 +3,7 @@ namespace Interprocess.Attending.Application.Patients.GetPatient;
 public sealed class PatientResponse
 {
     public Guid Id { get; init; }
-    public string FirstName { get; init; } = string.Empty;
-    public string LastName { get; init; } = string.Empty;
+    public string Name { get; init; } = string.Empty;
     public string Cpf { get; init; } = string.Empty;
     public string DateBirth { get; init; } = string.Empty;
     public string Sex { get; init; } = string.Empty;

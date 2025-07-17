@@ -23,9 +23,8 @@ internal sealed class GetPatientQueryHandler : IQueryHandler<GetPatientQuery, IE
             var responses = patients.Select(patient => new PatientResponse
             {
                 Id = patient.Id,
-                FirstName = patient.FirstName?.Value ?? string.Empty,
-                LastName = patient.LastName?.Value ?? string.Empty,
-                Cpf = patient.Cpf.Value,
+                Name = patient.Name,
+                Cpf = patient.Cpf,
                 DateBirth = patient.DateBirth,
                 Sex = patient.Sex.ToString(),
                 Status = patient.Status.ToString(),

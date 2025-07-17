@@ -34,7 +34,6 @@ public class AttendanceCreateDomainEventHandler : INotificationHandler<Attendanc
         if (patient is null)
             return;
         
-        await _registrationService.SendRegisterConfirmationAsync(
-            patient.Cpf, "Cadastro realizado com sucesso!");
+        await _registrationService.SendRegisterConfirmationAsync(patient.Cpf, "Cadastro realizado com sucesso!");
     }
 }

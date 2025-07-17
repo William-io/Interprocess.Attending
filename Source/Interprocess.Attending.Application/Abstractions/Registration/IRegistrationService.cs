@@ -2,5 +2,5 @@
 
 public interface IRegistrationService
 {
-    Task SendRegisterConfirmationAsync(Domain.Patients.Document cpf, string message);
+    Task SendRegisterConfirmationAsync(string cpf, string message);
 }

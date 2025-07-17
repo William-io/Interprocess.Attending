@@ -4,8 +4,7 @@ namespace Interprocess.Attending.Application.Patients.UpdatePatient;
 
 public sealed record UpdatePatientCommand(
     Guid PatientId,
-    string FirstName,
-    string LastName,
+    string Name,
     string Cpf,
     string DateBirth,
     string Sex,
