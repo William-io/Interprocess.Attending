@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Interprocess.Attending.Infrastructure.Repositories;
 
-internal sealed class AttendanceRepository : IAttendanceRepository
+internal sealed class AttendanceRepository : Repository<Attendance>, IAttendanceRepository
 {
     private readonly ApplicationDbContext _context;
 
-    public AttendanceRepository(ApplicationDbContext context)
+    public AttendanceRepository(ApplicationDbContext context) : base(context)
     {
         _context = context;
     }

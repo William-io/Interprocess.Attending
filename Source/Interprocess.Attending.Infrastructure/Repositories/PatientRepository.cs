@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Interprocess.Attending.Infrastructure.Repositories;
 
-public class PatientRepository : IPatientRepository
+internal sealed class PatientRepository : Repository<Patient>, IPatientRepository
 {
     private readonly ApplicationDbContext _context;
 
-    public PatientRepository(ApplicationDbContext context)
+    public PatientRepository(ApplicationDbContext context) : base(context)
     {
         _context = context;
     }
