@@ -1,3 +1,4 @@
+using Interprocess.Attending.API.Extensions;
 using Interprocess.Attending.Application;
 using Interprocess.Attending.Infrastructure;
 
@@ -20,6 +21,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    
+    app.ApplyMigrations();
 }
 
 app.UseHttpsRedirection();
