@@ -23,7 +23,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     
     app.ApplyMigrations();
+    app.Seeding();
 }
+
+app.MapControllers();
 
 app.UseHttpsRedirection();
 
