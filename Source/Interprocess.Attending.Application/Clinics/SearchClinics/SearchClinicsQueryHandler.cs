@@ -21,10 +21,10 @@ internal class SearchClinicsQueryHandler : IQueryHandler<SearchClinicsQuery, IRe
 
         const string sql = """
                 SELECT
-                    id AS Id,
-                    name AS Name
-                FROM clinics
-                ORDER BY name
+                    Id AS Id,
+                    Name AS Name
+                FROM Clinics
+                ORDER BY Name
                 """;
 
         IEnumerable<ClinicResponse> clinics = await sqlConnection.QueryAsync<ClinicResponse>(sql);

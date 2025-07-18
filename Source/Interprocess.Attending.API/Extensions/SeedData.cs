@@ -17,7 +17,7 @@ internal static class SeedData
         var faker = new Faker();
 
         List<object> clinics = new();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 3; i++)
         {
             clinics.Add(new
             {

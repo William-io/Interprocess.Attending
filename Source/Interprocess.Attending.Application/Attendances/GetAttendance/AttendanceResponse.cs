@@ -7,5 +7,8 @@ public class AttendanceResponse
     public Guid PatientId { get; init; }
     public string Description { get; init; } = null!;
     public DateTime CreatedOnUtc { get; init; }
-    public int Status { get; init; }
+    public string Status { get; init; } = null!;
+    public string PatientName { get; init; } = null!;
+    public string ClinicName { get; init; } = null!;
+    public string PatientCpf { get; init; } = null!;
 }

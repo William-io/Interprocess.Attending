@@ -21,14 +21,19 @@ internal sealed class GetAttendanceQueryHandler : IQueryHandler<GetAttendanceQue
 
         const string sql = """
                            SELECT
-                               id AS Id,
-                               clinic_id AS ClinicId,
-                               patient_id AS PatientId,
-                               description AS Description,
-                               created_on_utc AS CreatedOnUtc,
-                               status AS Status
-                           FROM attendances
-                           ORDER BY created_on_utc DESC
+                               a.Id AS Id,
+                               a.ClinicId AS ClinicId,
+                               a.PatientId AS PatientId,
+                               a.Description AS Description,
+                               a.CreatedOnUtc AS CreatedOnUtc,
+                               a.Status AS Status,
+                               p.Name AS PatientName,
+                               c.Name AS ClinicName,
+                               p.Cpf AS PatientCpf
+                           FROM Attendances a
+                           LEFT JOIN Patients p ON a.PatientId = p.Id
+                           LEFT JOIN Clinics c ON a.ClinicId = c.Id
+                           ORDER BY a.CreatedOnUtc DESC
                            """;
 
         var attendances = await connection.QueryAsync<AttendanceResponse>(sql);
