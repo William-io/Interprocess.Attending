@@ -9,7 +9,7 @@ public static class AttendanceDateValidator
     /// <exception cref="ArgumentException">Lançada quando a data está no futuro</exception>
     public static void ValidateAttendanceDateTime(DateTime attendanceDateTime)
     {
-        var currentDateTime = DateTime.Now;
+        var currentDateTime = DateTime.UtcNow;
 
         if (attendanceDateTime > currentDateTime)
         {

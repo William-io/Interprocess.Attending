@@ -47,7 +47,7 @@ internal sealed class CreateAttendanceCommandHandler : ICommandHandler<CreateAtt
                 clinic,
                 patient.Id,
                 request.Description,
-                _dateTimeProvider.UtcNow);
+                request.StartedDate);
             
             _attendanceRepository.Add(attendance);
             
