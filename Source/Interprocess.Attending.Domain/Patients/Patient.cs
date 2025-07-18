@@ -26,16 +26,12 @@ public sealed class Patient : Entity
     {
     }
 
-    public string Name { get; private set; }
-    public string Cpf { get; private set; }
-    public string DateBirth { get; private set; }
+    public string Name { get; private set; } = null!;
+    public string Cpf { get; private set; } = null!;
+    public string DateBirth { get; private set; } = null!;
     public Sex Sex { get; private set; }
     public PatientStatus Status { get; private set; }
-    public Address Address { get; private set; }
-    
-    /*
-     * Utilizando padrao factory para criar pacientes
-     */
+    public Address Address { get; private set; } = null!;
     
     public static async Task<Patient> CreateAsync(
         string name,
@@ -84,6 +80,5 @@ public sealed class Patient : Entity
     {
         Status = PatientStatus.Active;
     }
-    
     
 }

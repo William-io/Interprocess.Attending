@@ -20,14 +20,10 @@ internal sealed class AttendanceSetting : IEntityTypeConfiguration<Attendance>
              status => status.ToString(),
              status => Enum.Parse<AttendanceStatus>(status));
 
-        // Relacionamento Muitos para um onde um atendimento pertence a uma clínica
-        // e uma clínica pode ter muitos atendimentos
         builder.HasOne<Clinic>()
             .WithMany()
             .HasForeignKey(booking => booking.ClinicId);
 
-        // Relacionamento Muitos para um onde um paciente pode ter muitas atendimentos
-        // e um atendimento pertence a um paciente
         builder.HasOne<Patient>()
             .WithMany()
             .HasForeignKey(booking => booking.PatientId);

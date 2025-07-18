@@ -38,7 +38,6 @@ internal sealed class PatientRepository : Repository<Patient>, IPatientRepositor
     {
         var query = _context.Set<Patient>().AsQueryable();
 
-        // Filtros que podem ser traduzidos para SQL
         if (!string.IsNullOrEmpty(cpf))
         {
             query = query.Where(p => p.Cpf.Contains(cpf));
@@ -49,10 +48,8 @@ internal sealed class PatientRepository : Repository<Patient>, IPatientRepositor
             query = query.Where(p => p.Status == status.Value);
         }
 
-        // Carregar dados em memória para filtros complexos
         var patients = await query.ToListAsync(cancellationToken);
 
-        // Aplicar filtro por nome em memória
         if (!string.IsNullOrEmpty(name))
         {
             patients = patients.Where(p => 
